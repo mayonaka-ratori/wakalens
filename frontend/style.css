@@ -1,0 +1,359 @@
+/* WakaLens - わかるレンズ スタイルシート */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+main {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.camera-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#camera {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    border: 3px solid #667eea;
+    border-radius: 10px;
+    background: #f0f0f0;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+#loaded-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn .icon {
+    font-size: 1.2em;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: white;
+    box-shadow: 0 4px 15px rgba(56, 239, 125, 0.4);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(56, 239, 125, 0.6);
+}
+
+.btn-tertiary {
+    background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(253, 121, 168, 0.4);
+}
+
+.btn-tertiary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(253, 121, 168, 0.6);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f0f0f0;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    font-size: 1.2em;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.result-section {
+    margin-top: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.result-section h2 {
+    color: #2d3436;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#result-text {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-size: 1.1em;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    white-space: pre-wrap;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.result-buttons .btn {
+    margin: 0;
+}
+
+#try-again {
+    display: block;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    opacity: 0.8;
+    font-size: 0.9em;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* エラーメッセージ用のスタイル */
+.error-message {
+    background: #ff7675;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 年齢別モード切り替えスタイル */
+.age-mode-selector {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.age-mode-selector label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.age-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.age-btn {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.age-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.age-btn.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #667eea;
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.age-btn .age-range {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.age-btn small {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+/* リッチテキスト表示用のスタイル */
+.rich-text-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-size: 1.1em;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.rich-text-content h1,
+.rich-text-content h2,
+.rich-text-content h3 {
+    color: #2d3436;
+    margin: 15px 0 10px 0;
+}
+
+.rich-text-content h1 { font-size: 1.3em; }
+.rich-text-content h2 { font-size: 1.2em; }
+.rich-text-content h3 { font-size: 1.1em; }
+
+.rich-text-content p {
+    margin: 10px 0;
+}
+
+.rich-text-content strong {
+    font-weight: bold;
+    color: #667eea;
+    background-color: rgba(102, 126, 234, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.rich-text-content u {
+    text-decoration: underline;
+    text-decoration-color: #ff6b6b;
+    text-decoration-thickness: 2px;
+    color: #2d3436;
+}
+
+.rich-text-content ul, .rich-text-content ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.rich-text-content li {
+    margin: 5px 0;
+}
+
+.rich-text-content .emoji {
+    font-size: 1.2em;
+}

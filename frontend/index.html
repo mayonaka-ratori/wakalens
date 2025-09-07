@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>わかるレンズ (WakaLens) - 認知の翻訳アプリ</title>
+    <link rel="stylesheet" href="style.css?v=prod-2025">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>わかるレンズ</h1>
+            <p>難しい文章を、わかりやすく！</p>
+            
+            <!-- 年齢別モード切り替えボタン -->
+            <div class="age-mode-selector">
+                <label>年齢に合わせたモード:</label>
+                <div class="age-buttons">
+                    <button id="mode-1-3" class="age-btn active" data-mode="1-3">
+                        <span class="age-range">1〜3年生</span>
+                        <small>ひらがな中心</small>
+                    </button>
+                    <button id="mode-4-6" class="age-btn" data-mode="4-6">
+                        <span class="age-range">4〜6年生</span>
+                        <small>常用漢字対応</small>
+                    </button>
+                    <button id="mode-english" class="age-btn" data-mode="english">
+                        <span class="age-range">English</span>
+                        <small>For adults/foreigners</small>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="camera-section">
+                <video id="camera" autoplay playsinline></video>
+                <img id="loaded-image" style="display: none; width: 100%; max-width: 500px; height: 300px; object-fit: cover; border: 3px solid #667eea; border-radius: 10px;">
+                <canvas id="capture-canvas" style="display: none;"></canvas>
+                
+                <div id="image-input-section" style="display: none; margin: 20px 0;">
+                    <input type="text" id="image-url" placeholder="画像のURLを入力してください" style="width: 100%; max-width: 400px; padding: 10px; border: 2px solid #667eea; border-radius: 5px; margin-bottom: 10px;">
+                    <button id="load-url-image" class="btn btn-primary">この画像を読み込む</button>
+                    <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                        <p><strong>テスト用サンプル画像:</strong></p>
+                        <button id="sample-jp" class="btn" style="font-size: 0.8em; padding: 5px 10px; margin: 2px;">日本語テキスト例1</button>
+                        <button id="sample-en" class="btn" style="font-size: 0.8em; padding: 5px 10px; margin: 2px;">英語テキスト例</button>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="start-camera" class="btn btn-primary">
+                        <span class="icon">📸</span>カメラを開始
+                    </button>
+                    <button id="load-image" class="btn btn-primary">
+                        <span class="icon">🖼️</span>画像を見る
+                    </button>
+                    <button id="translate-btn" class="btn btn-secondary" style="display: none;">わかる！</button>
+                    <button id="test-api-btn" class="btn btn-tertiary">APIテスト</button>
+                    <button id="reset-btn" class="btn btn-tertiary" style="display: none;">さいしょにもどる</button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>あいちゃんが調べています...</p>
+            </div>
+
+            <div class="result-section" id="result-section" style="display: none;">
+                <h2 id="result-header">あいちゃんからのレポート</h2>
+                <div id="result-text" class="rich-text-content"></div>
+                <button id="try-again" class="btn btn-primary">もう一度</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 WakaLens - 世界初の認知翻訳アプリ</p>
+        </footer>
+    </div>
+
+    <script src="script.js?v=final-clean-2025"></script>
+</body>
+</html>
