@@ -74,6 +74,8 @@ class WakaLens {
         } catch (error) {
             console.error('カメラアクセスエラー:', error);
             this.showError('カメラにアクセスできませんでした。');
+            this.startCameraBtn.innerHTML = '<span class="icon">📸</span>カメラを開始';
+            this.startCameraBtn.disabled = false;
         }
     }
 
@@ -267,7 +269,7 @@ class WakaLens {
             this.showError(error.message);
         } finally {
             this.showLoading(false);
-            // translateBtn の表示状態はそのまま維持
+            this.translateBtn.disabled = false;
         }
     }
 
@@ -416,6 +418,8 @@ class WakaLens {
         this.currentImageSource = 'camera';
         
         this.startCameraBtn.style.display = 'inline-flex';
+        this.startCameraBtn.innerHTML = '<span class="icon">📸</span>カメラを開始';
+        this.startCameraBtn.disabled = false;
         this.loadImageBtn.style.display = 'inline-flex';
         this.resetBtn.style.display = 'none';
         this.imageInputSection.style.display = 'none';

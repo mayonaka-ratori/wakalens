@@ -15,6 +15,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.CLAUDE_API_KEY
 });
 
+const CLAUDE_MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-20250514';
+
 // Initialize response validator
 const responseValidator = new ClaudeResponseValidator();
 
@@ -50,7 +52,7 @@ router.post('/extract-facts', claudeApiLimiter, validateAndSanitizeInput, valida
 TEXT: ${text}`;
 
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 1000,
       messages: [
         {
@@ -109,7 +111,7 @@ router.post('/translate-persona', claudeApiLimiter, validateAndSanitizeInput, va
     const combinedPrompt = prompt + '\n\n--- START OF FACTS TO EXPLAIN ---\n' + facts + '\n--- END OF FACTS TO EXPLAIN ---';
 
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 2000,
       messages: [
         {
@@ -169,7 +171,7 @@ router.post('/translate', claudeApiLimiter, validateAndSanitizeInput, validateCo
 TEXT: ${text}`;
 
     const factResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 1000,
       messages: [
         {
@@ -186,7 +188,7 @@ TEXT: ${text}`;
     const combinedPrompt = personaPromptContent + '\n\n--- START OF FACTS TO EXPLAIN ---\n' + facts + '\n--- END OF FACTS TO EXPLAIN ---';
 
     const translationResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 2000,
       messages: [
         {
@@ -259,7 +261,7 @@ router.post('/translate-4-6', claudeApiLimiter, validateAndSanitizeInput, valida
 TEXT: ${text}`;
 
     const factResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 1000,
       messages: [
         {
@@ -272,12 +274,20 @@ TEXT: ${text}`;
     const facts = factResponse.content[0].text;
 
     // Step 2: Translate with 4-6年生 persona
-    const personaPromptPath = path.join(__dirname, '../../prompts/prompt_aichan_4-6yo.txt');
-    const personaPromptContent = await fs.readFile(personaPromptPath, 'utf8');
+    let personaPromptContent;
+    try {
+      const personaPromptPath = path.join(__dirname, '../../prompts/prompt_aichan_4-6yo.txt');
+      personaPromptContent = await fs.readFile(personaPromptPath, 'utf8');
+    } catch (fileError) {
+      return res.status(500).json({
+        error: 'Persona prompt missing',
+        message: 'ペルソナプロンプトファイルが見つかりません: prompt_aichan_4-6yo.txt'
+      });
+    }
     const combinedPrompt = personaPromptContent + '\n\n--- START OF FACTS TO EXPLAIN ---\n' + facts + '\n--- END OF FACTS TO EXPLAIN ---';
 
     const translationResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 2000,
       messages: [
         {
@@ -351,7 +361,7 @@ router.post('/translate-english', claudeApiLimiter, validateAndSanitizeInput, va
 TEXT: ${text}`;
 
     const factResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 1000,
       messages: [
         {
@@ -364,12 +374,20 @@ TEXT: ${text}`;
     const facts = factResponse.content[0].text;
 
     // Step 2: Translate with English Aichan persona
-    const personaPromptPath = path.join(__dirname, '../../prompts/prompt_aichan_english.txt');
-    const personaPromptContent = await fs.readFile(personaPromptPath, 'utf8');
+    let personaPromptContent;
+    try {
+      const personaPromptPath = path.join(__dirname, '../../prompts/prompt_aichan_english.txt');
+      personaPromptContent = await fs.readFile(personaPromptPath, 'utf8');
+    } catch (fileError) {
+      return res.status(500).json({
+        error: 'Persona prompt missing',
+        message: 'ペルソナプロンプトファイルが見つかりません: prompt_aichan_english.txt'
+      });
+    }
     const combinedPrompt = personaPromptContent + '\n\n--- START OF FACTS TO EXPLAIN ---\n' + facts + '\n--- END OF FACTS TO EXPLAIN ---';
 
     const translationResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: CLAUDE_MODEL,
       max_tokens: 2000,
       messages: [
         {
